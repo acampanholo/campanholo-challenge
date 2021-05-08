@@ -1,0 +1,22 @@
+footer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  background-color: #dadada;
+  min-height: 100px;
+  width: 100%;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+}
+
+footer button {
+  margin-left: 20px;
+  padding: 10px;
+  background-color: rgb(57, 57, 218);
+  color: white;
+}
+
+footer button:hover {
+  background-color: rgb(16, 16, 212);
+}
