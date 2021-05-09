@@ -6,10 +6,8 @@ class App extends React.Component {
   render() {
     return (
       <div>
-        <div>
-          <Header />
-          <ChartPlotter />
-        </div>
+        <Header />
+        <ChartPlotter />
       </div>
     );
   }

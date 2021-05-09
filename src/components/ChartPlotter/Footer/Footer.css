@@ -3,20 +3,26 @@ footer {
   align-items: center;
   justify-content: flex-start;
   background-color: #dadada;
-  min-height: 100px;
+  min-height: 80px;
   width: 100%;
   position: fixed;
   left: 0;
   bottom: 0;
+  box-shadow: 0px -1px 6px -1px rgba(0, 0, 0, 0.47);
 }
 
 footer button {
   margin-left: 20px;
-  padding: 10px;
-  background-color: rgb(57, 57, 218);
+  padding: 14px;
+  font-size: 16px;
+  font-family: "Source Sans Pro";
+  border-radius: 8px;
+  background-color: #24a0ed;
+  border: none;
   color: white;
+  box-shadow: 2px 2px 6px -1px rgba(0, 0, 0, 0.47);
 }
 
 footer button:hover {
-  background-color: rgb(16, 16, 212);
+  background-color: #51b0eb;
 }

@@ -17,7 +17,7 @@ class CodeInput extends React.Component {
         className="code-input"
         mode="json"
         theme="twilight"
-        height="200px"
+        height="250px"
         width="auto"
         onChange={this.props.handleOnChange}
         fontSize={14}

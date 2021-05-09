@@ -1,42 +1,28 @@
 import React from "react";
 import Chart from "react-google-charts";
+import "./ChartView.css";
 
-let loko;
-let loko1;
-let loko3;
+let labels;
+let data;
+let finalData = [];
 
 class ChartView extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {};
-  }
-
-  getData() {
-    loko = this.props.labels;
-    loko1 = this.props.data;
-    // console.log(loko, loko1[0], loko1[1]);
-    (loko3 = loko), [loko1].flat();
-    return [loko, loko3];
-  }
-
-  // nice = this.props.labels;
   render() {
-    console.log(this.getData());
+    console.log(this.props.finalData);
     return (
       <Chart
         className="chart-view"
-        width={"100%"}
-        height={"400px"}
+        width={"95%"}
+        height={"550px"}
         chartType="LineChart"
         loader={<div>Loading Chart</div>}
-        data={this.getData()}
+        data={this.props.finalData}
         options={{
           hAxis: {
-            title: "Time",
+            title: "Time in minutes",
           },
-          vAxis: {
-            title: "Popularity",
-          },
+          fontSize: 14,
+          fontName: "Source Sans Pro",
         }}
         rootProps={{ "data-testid": "1" }}
       />

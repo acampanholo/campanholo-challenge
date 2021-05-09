@@ -5,9 +5,7 @@ class Footer extends React.Component {
   render() {
     return (
       <footer>
-        <form>
-          <button onClick={this.props.handleOnClick}>GENERATE CHART</button>
-        </form>
+        <button onClick={this.props.handleOnClick}>GENERATE CHART</button>
       </footer>
     );
   }
