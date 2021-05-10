@@ -2,8 +2,8 @@ import React from "react";
 import AceEditor from "react-ace";
 
 import "./CodeInput.css";
-import "ace-builds/src-noconflict/mode-json";
-import "ace-builds/src-noconflict/theme-twilight";
+import "ace-builds/src-noconflict/mode-typescript";
+import "ace-builds/src-noconflict/theme-monokai";
 
 class CodeInput extends React.Component {
   constructor(props) {
@@ -15,12 +15,12 @@ class CodeInput extends React.Component {
     return (
       <AceEditor
         className="code-input"
-        mode="json"
-        theme="twilight"
+        mode="typescript"
+        theme="monokai"
         height="250px"
         width="auto"
         onChange={this.props.handleOnChange}
-        fontSize={14}
+        fontSize={16}
         showPrintMargin={true}
         setOptions={{
           enableBasicAutocompletion: false,

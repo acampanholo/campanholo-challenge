@@ -1,0 +1,21 @@
+.error-message-format {
+  display: none;
+  font-family: "Source Sans Pro";
+  padding: 8px;
+  font-size: 24px;
+  color: white;
+  background-color: red;
+}
+
+.error-message-data {
+  display: none;
+  font-family: "Source Sans Pro";
+  padding: 8px;
+  font-size: 24px;
+  color: white;
+  background-color: red;
+}
+
+.display {
+  display: inline-block;
+}

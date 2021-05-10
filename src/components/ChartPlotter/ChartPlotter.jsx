@@ -1,11 +1,12 @@
 import React from "react";
 import CodeInput from "./CodeInput/CodeInput";
 import Footer from "./Footer/Footer";
-import ChartView from "./Chart/ChartView";
+import ChartView from "./ChartView/ChartView";
 import EventData from "./modules/EventData";
 import EventStart from "./modules/EventStart";
 import EventSpan from "./modules/EventSpan";
 import EventStop from "./modules/EventStop";
+import "./ChartPlotter.css";
 
 class ChartPlotter extends React.Component {
   constructor(props) {
@@ -26,7 +27,6 @@ class ChartPlotter extends React.Component {
   handleOnClick(e) {
     e.preventDefault();
 
-    let treatedValues;
     let start;
     let span;
     let stop;
@@ -39,6 +39,9 @@ class ChartPlotter extends React.Component {
     let spanBegin;
     let spanEnd;
     let treatedLabels = [];
+    let treatedValues;
+
+    let error;
 
     try {
       let convertedInput = this.state.input
@@ -49,7 +52,7 @@ class ChartPlotter extends React.Component {
         .match(/\{[^}]+\}/g)
         .map(JSON.parse);
 
-      convertedInput.forEach((line, index) => {
+      convertedInput.every((line, index) => {
         if (line.type == "start" && !start) {
           start = new EventStart();
           start.group = line.group;
@@ -65,10 +68,7 @@ class ChartPlotter extends React.Component {
         } else if (line.type == "data" && span) {
           data = new EventData();
 
-          // data.os === data["os"] === data[start.group[0]]
-          // data[start.select[0]];
-
-          // Pegando os grupos
+          // Getting group values
 
           start.group.forEach((groupItem, groupIdx) => {
             if (line[groupItem]) {
@@ -79,7 +79,7 @@ class ChartPlotter extends React.Component {
             }
           });
 
-          // Pegando os select
+          // Getting select values
 
           start.select.forEach((selectItem, selectIdx) => {
             if (line[selectItem]) {
@@ -90,7 +90,7 @@ class ChartPlotter extends React.Component {
             }
           });
 
-          // Somando os nomes dos grupos
+          // Creating first part of label with group values
 
           groupItems.forEach((labelPart, lblIdx) => {
             if (line[labelPart]) {
@@ -105,7 +105,7 @@ class ChartPlotter extends React.Component {
             }
           });
 
-          // Somando os nomes aos select
+          // Creating full label
 
           labels.forEach((label, labelIdx) => {
             selectItems.forEach((selectItem, selectIdx) => {
@@ -115,12 +115,7 @@ class ChartPlotter extends React.Component {
             });
           });
 
-          // finalLabels.forEach((label) => {
-          //   label.replaceAll("_", " ");
-          //   testeLabel.push(label);
-          // });
-
-          // Pegando os valores
+          // Getting values
 
           start.select.forEach((selectItem, selectIdx) => {
             if (line[selectItem]) {
@@ -128,7 +123,7 @@ class ChartPlotter extends React.Component {
             }
           });
 
-          // Dividindo o array dos valores
+          // Splitting values array
           treatedValues = values.reduce((resultArray, valueSet, i) => {
             const chunkIndex = Math.floor(
               i / (values.length / selectItems.length)
@@ -143,22 +138,22 @@ class ChartPlotter extends React.Component {
             return resultArray;
           }, []);
         }
+        return true;
       });
+
+      // Removing underscore
 
       finalLabels.forEach((label) => {
         treatedLabels.push(label.replaceAll("_", " "));
       });
 
+      // Converting span to single number
+
       spanBegin = new Date(span.begin);
       spanEnd = new Date(span.end);
 
-      // for (let i = 0; i < finalLabels.length; i++) {
-      //   finalLabels[i].replaceAll("_", " ");
-      //   testeLabel.push(finalLabels[i]);
-      //   console.log(testeLabel);
-      // }
+      // Setting span as index 0 of values array
 
-      // finalLabels.unshift("x");
       for (let i = 0; i < treatedValues.length; i++) {
         if (treatedValues[0][0] !== spanBegin.getMinutes()) {
           treatedValues[0].unshift(spanBegin.getMinutes());
@@ -166,21 +161,21 @@ class ChartPlotter extends React.Component {
           treatedValues[i].unshift(spanEnd.getMinutes());
         }
       }
-      treatedValues.unshift(treatedLabels);
-      // }else{
-      //   treatedValues=[];
-      // }
 
       this.setState({
         start: start,
         span: span,
         stop: stop,
-        // treatedLabels: finalLabels,
-        // treatedData: treatedValues,
-        finalData: treatedValues,
+        treatedLabels: treatedLabels,
+        treatedData: treatedValues,
       });
+
+      error = document.querySelector(".error-message-format");
+      error.classList.remove("display");
     } catch (error) {
-      console.log(error);
+      console.log("Check input format");
+      error = document.querySelector(".error-message-format");
+      error.classList.add("display");
     }
   }
 
@@ -191,10 +186,17 @@ class ChartPlotter extends React.Component {
     return (
       <div>
         <CodeInput handleOnChange={this.handleOnChange} />
+        <div className="error-message-format">
+          Error: please check your data format and try again.
+        </div>
+        <div className="error-message-data">
+          Error: one or more select values don't have a pair. Please check your
+          data and try again.
+        </div>
         <ChartView
-          // labels={this.state.treatedLabels}
-          // data={this.state.treatedData}
-          finalData={this.state.finalData}
+          labels={this.state.treatedLabels}
+          data={this.state.treatedData}
+          // finalData={this.state.finalData}
         />
         <Footer handleOnClick={this.handleOnClick} />
       </div>
