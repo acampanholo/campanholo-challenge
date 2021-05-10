@@ -101,5 +101,5 @@ According to its official documentation, React supports Internet Explorer 11 but
 First of all, I had to import the necessary polyfills on the index.js file. Without the polyfills, the react app will likely not even be on the screen. After that, Internet Explorer 11 is able to render the app but it won’t be functional yet. As mentioned on the Main Version documentation, I used the replaceAll() as one of the methods to convert the string input into an object. This method is new to Javascript and is not supported on Internet Explorer. Using the JSON.parse() methor alone, I was able to convert the string into an object but only if the string is a valid JSON format. The IE11 version is simpler because it requires a more specific data format from the user, but will work on Internet Explorer 11 with the changes made.
 
 
-Click here for the [IE 11 Version repository](https://github.com/acampanholo/campanholo-challenge-ie-version/tree/master).
+Click for the [IE 11 Version repository](https://github.com/acampanholo/campanholo-challenge-ie-version/tree/master).
 
