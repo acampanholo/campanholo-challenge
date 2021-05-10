@@ -47,11 +47,22 @@ class ChartView extends React.Component {
         options={{
           hAxis: {
             title: "Time in minutes",
+            gridlines: {
+              count: 0,
+            },
+            baselineColor: "#fff",
+          },
+          vAxis: {
+            gridlines: {
+              count: 3,
+            },
+            textPosition: "none",
           },
           fontSize: 14,
           fontName: "Source Sans Pro",
+          pointSize: 10,
         }}
-        rootProps={{ "data-testid": "1" }}
+        rootProps={{ "data-testid": "chart" }}
       />
     );
   }

@@ -4,14 +4,15 @@
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^5.12.0",
-    "@testing-library/react": "^11.2.6",
     "@testing-library/user-event": "^12.8.3",
     "ace-builds": "^1.4.12",
+    "jest-dom": "^4.0.0",
     "react": "^17.0.2",
     "react-ace": "^9.4.0",
     "react-dom": "^17.0.2",
     "react-google-charts": "^3.0.15",
     "react-scripts": "4.0.3",
+    "react-test-renderer": "^17.0.2",
     "typescript": "^4.2.4",
     "web-vitals": "^1.1.1"
   },
@@ -39,5 +40,10 @@
       "last 1 safari version",
       "ie 11"
     ]
+  },
+  "devDependencies": {
+    "@testing-library/react": "^11.2.6",
+    "install": "^0.13.0",
+    "npm": "^7.12.0"
   }
 }

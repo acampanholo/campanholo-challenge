@@ -1,7 +1,7 @@
 class EventData { 
   selectStartMatch: [];
   groupStartMatch: [];
-  value: null;
+  
   
 }
 

@@ -22,13 +22,6 @@ class CodeInput extends React.Component {
         onChange={this.props.handleOnChange}
         fontSize={16}
         showPrintMargin={true}
-        setOptions={{
-          enableBasicAutocompletion: false,
-          enableLiveAutocompletion: false,
-          enableSnippets: false,
-          showLineNumbers: true,
-          tabSize: 2,
-        }}
       />
     );
   }

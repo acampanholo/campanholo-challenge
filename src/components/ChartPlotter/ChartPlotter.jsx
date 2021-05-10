@@ -13,9 +13,6 @@ class ChartPlotter extends React.Component {
     super(props);
     this.state = {
       input: "",
-      start: [],
-      stop: [],
-      span: [],
       treatedData: [],
       treatedLabels: [],
       finalData: [],
@@ -52,25 +49,25 @@ class ChartPlotter extends React.Component {
         .match(/\{[^}]+\}/g)
         .map(JSON.parse);
 
-      convertedInput.every((line, index) => {
-        if (line.type == "start" && !start) {
+      convertedInput.every((line) => {
+        if (line.type === "start" && !start) {
           start = new EventStart();
           start.group = line.group;
           start.select = line.select;
-        } else if (line.type == "span" && start && !span) {
+        } else if (line.type === "span" && start && !span) {
           span = new EventSpan();
           span.begin = line.begin;
           span.end = line.end;
-        } else if (line.type == "stop" && span) {
+        } else if (line.type === "stop" && span) {
           stop = new EventStop();
           stop.timestamp = line.timestamp;
           return false;
-        } else if (line.type == "data" && span) {
+        } else if (line.type === "data" && span) {
           data = new EventData();
 
           // Getting group values
 
-          start.group.forEach((groupItem, groupIdx) => {
+          start.group.forEach((groupItem) => {
             if (line[groupItem]) {
               if (groupItems.indexOf(groupItem) === -1) {
                 groupItems.push(groupItem);
@@ -81,7 +78,7 @@ class ChartPlotter extends React.Component {
 
           // Getting select values
 
-          start.select.forEach((selectItem, selectIdx) => {
+          start.select.forEach((selectItem) => {
             if (line[selectItem]) {
               if (selectItems.indexOf(selectItem) === -1) {
                 selectItems.push(selectItem);
@@ -107,8 +104,8 @@ class ChartPlotter extends React.Component {
 
           // Creating full label
 
-          labels.forEach((label, labelIdx) => {
-            selectItems.forEach((selectItem, selectIdx) => {
+          labels.forEach((label) => {
+            selectItems.forEach((selectItem) => {
               if (finalLabels.indexOf(label + " " + selectItem) === -1) {
                 finalLabels.push(label + " " + selectItem);
               }
@@ -117,13 +114,14 @@ class ChartPlotter extends React.Component {
 
           // Getting values
 
-          start.select.forEach((selectItem, selectIdx) => {
+          start.select.forEach((selectItem) => {
             if (line[selectItem]) {
               values.push(line[selectItem]);
             }
           });
 
           // Splitting values array
+
           treatedValues = values.reduce((resultArray, valueSet, i) => {
             const chunkIndex = Math.floor(
               i / (values.length / selectItems.length)
@@ -163,9 +161,6 @@ class ChartPlotter extends React.Component {
       }
 
       this.setState({
-        start: start,
-        span: span,
-        stop: stop,
         treatedLabels: treatedLabels,
         treatedData: treatedValues,
       });
@@ -176,6 +171,7 @@ class ChartPlotter extends React.Component {
       console.log("Check input format");
       error = document.querySelector(".error-message-format");
       error.classList.add("display");
+      this.setState({ treatedLabels: [] });
     }
   }
 
